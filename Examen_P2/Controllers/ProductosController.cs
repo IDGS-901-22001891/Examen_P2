@@ -32,7 +32,7 @@ namespace Examen_P2.Controllers
                     Name = p.Name,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
-                    Categorias = p.Categories.Select(c => c.Name).ToList()
+                    Categoria = p.Categories.Select(c => c.Name).FirstOrDefault()
                 })
                 .ToListAsync();
 

@@ -6,6 +6,6 @@
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
-        public List<string> Categorias { get; set; } = new();
+        public string Categoria { get; set; } = null!; // Solo una
     }
 }
