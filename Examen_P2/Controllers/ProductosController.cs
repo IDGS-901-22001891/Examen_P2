@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Examen_P2.DTOs;
+
 
 namespace Examen_P2.Controllers
 {
@@ -22,9 +24,22 @@ namespace Examen_P2.Controllers
         [Route("Listar")]
         public async Task<IActionResult> Lista()
         {
-            var listaProductos = await _baseDatos.Products.ToListAsync();
-            return Ok(listaProductos);
+            var lista = await _baseDatos.Products
+                .Include(p => p.Categories)
+                .Select(p => new ProductoDTO
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Categorias = p.Categories.Select(c => c.Name).ToList()
+                })
+                .ToListAsync();
+
+            return Ok(lista);
         }
+
+
 
     }
 }
